@@ -2,8 +2,6 @@
 title: Magical multi-step forms
 ---
 
-<Banner></Banner>
-
 **Acarnist** provides a simple, yet powerful approach for adding multi-step form wizards to you Laravel application. It takes care of all the boring details so you can spend your time writing features, not boilerplate.
 
 Out of the box, **Arcanist** handles:
@@ -13,18 +11,25 @@ Out of the box, **Arcanist** handles:
 - Persisting data between steps
 - Resuming wizards
 
-```php[sup, bro]
-class SignupWizard extends AbstractWizard
+<tabbed-code-example>
+
+<file name="SetUpWizard.php">
+class SignUpWizard extends AbstractWizard
 {
-    public static string $slug = 'signup';
-
-    public static string $title = 'Sign-up for a new account';
-
     protected array $steps = [
         EnterUsernameAndPassword::class,
         SelectSubscription::class,
     ];
 }
-```
+</file>
 
-Test
+<file name="EnterUsernameAndPassword.php">
+class EnterUserNameAndPassword extends WizardStep
+{
+    public string $name = 'Enter username and password';
+
+    public string $slug = 'username';
+}
+</file>
+
+</tabbed-code-example>

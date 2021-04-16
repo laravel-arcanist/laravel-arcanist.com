@@ -47,8 +47,14 @@ export default {
     liveEdit: false,
     markdown: {
       prism: {
-        theme: "prism-themes/themes/prism-base16-ateliersulphurpool.light.css",
+        theme: false,
       },
     },
+  },
+
+  plugins: ["~plugins/highlightjs.js"],
+
+  tailwindcss: {
+    jit: true,
   },
 };

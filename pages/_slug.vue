@@ -22,11 +22,11 @@ export default {
 }
 
 pre[class*="language-"] {
-  @apply font-mono text-sm;
+  @apply font-mono text-sm rounded-xl;
 }
 
 .filename {
-  @apply absolute bottom-0 left-0 w-full bg-white bg-opacity-10 text-gray-300 text-sm px-6 py-3 border-t border-gray-600 tracking-wide;
+  @apply absolute bottom-0 rounded-b-xl left-0 w-full bg-gray-200 text-gray-500 text-sm px-6 py-3 border-t border-gray-300 tracking-wide;
 }
 
 .filename + pre[class*="language-"] {

@@ -1,8 +1,7 @@
 <template>
-  <pre
-    v-if="isActive"
-    v-highlightjs="code"
-  ><code class="php rounded-b px-6 py-4 text-sm"><slot/></code></pre>
+  <div v-show="isActive">
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -16,13 +15,8 @@ export default {
 
   data() {
     return {
-      code: null,
       isActive: false,
     };
-  },
-
-  created() {
-    this.code = this.$slots.default;
   },
 };
 </script>

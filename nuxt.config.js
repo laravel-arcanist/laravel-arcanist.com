@@ -45,11 +45,7 @@ export default {
 
   content: {
     liveEdit: false,
-    markdown: {
-      prism: {
-        theme: false,
-      },
-    },
+    markdown: {},
   },
 
   plugins: ["~plugins/highlightjs.js"],

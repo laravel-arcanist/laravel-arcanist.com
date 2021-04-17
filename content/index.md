@@ -9,27 +9,110 @@ Out of the box, **Arcanist** handles:
 - Automatically registering all necessary routes for a wizard
 - Form validation
 - Persisting data between steps
-- Resuming wizards
+- Keeping track of which steps have already been completed
+- Resuming wizards at the last unfinished step
+
+Not only that, Arcanist is completely front-end agnostic. You can use it together with Blade, Inertia.js, or anything else to render your templates.
 
 <tabbed-code-example>
 
-<file name="SetUpWizard.php">
-class SignUpWizard extends AbstractWizard
+<code-tab name="RegistrationWizard.php">
+
+```php
+class RegistrationWizard extends AbstractWizard
 {
+    public static string $name = 'Register';
+    public static string $slug = 'register';
+
+    protected string $onCompleteAction = RegisterUser::class;
+
     protected array $steps = [
-        EnterUsernameAndPassword::class,
+        EmailAndPassword::class,
         SelectSubscription::class,
     ];
 }
-</file>
+```
 
-<file name="EnterUsernameAndPassword.php">
-class EnterUserNameAndPassword extends WizardStep
+</code-tab>
+
+<code-tab name="EmailAndPassword.php">
+
+```php
+class EmailAndPassword extends WizardStep
 {
     public string $name = 'Enter username and password';
-
     public string $slug = 'username';
+
+    public function isComplete(): bool
+    {
+        return $this->data('email') !== null
+            && $this->data('password') !== null;
+    }
+
+    public function viewData(Request $request): array
+    {
+        return [
+            'email' => $this->data('email'),
+        ];
+    }
+
+    protected function handle(
+        Request $request,
+        array $payload
+    ): StepResult {
+        // Make sure we don't accidentally save a plaintext password.
+        $payload['password'] = bcrypt($payload['password']);
+
+        return $this->success($payload)
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'confirmed', 'min:10'],
+        ];
+    }
 }
-</file>
+```
+
+</code-tab>
+
+<code-tab name="SelectSubscription.php">
+
+```php
+class SelectSubscription extends WizardStep
+{
+    public string $name = 'Select subscription';
+    public string $slug = 'select-subscription';
+
+    public function isComplete(): bool
+    {
+        // Since this is the last step in the wizard, it
+        // will never be "complete" since completing it
+        // means completing the entire wizard.
+        return false;
+    }
+
+    public function viewData(Request $request): array
+    {
+        return $this->withFormData([
+            'subscriptions' => Subscription::all(),
+        ]);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'subscription' => [
+                'required',
+                'valid-subscription',
+            ],
+        ];
+    }
+}
+```
+
+</code-tab>
 
 </tabbed-code-example>

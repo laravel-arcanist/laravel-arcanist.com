@@ -1,5 +1,7 @@
 <template>
-  <nav class="w-64 space-y-10 border-r border-gray-200 h-full">
+  <nav
+    class="w-56 space-y-10 border-r border-gray-200 h-full pt-20 sticky -top-6"
+  >
     <SidebarSection
       v-for="(section, i) in sections"
       :key="i"

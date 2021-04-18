@@ -2,10 +2,10 @@
   <div class="pb-20">
     <Header />
 
-    <div class="max-w-6xl mx-auto pt-8 flex px-6 xl:px-0 mt-12">
+    <div class="max-w-6xl mx-auto flex px-6 xl:px-0">
       <Sidebar />
 
-      <div class="flex-1 pl-16">
+      <div class="flex-1 pt-20">
         <Nuxt />
       </div>
     </div>
@@ -19,6 +19,14 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-sans;
+  @apply font-serif;
+}
+
+code {
+  @apply font-mono;
+}
+
+pre[class*="language-"] {
+  @apply font-mono text-sm;
 }
 </style>

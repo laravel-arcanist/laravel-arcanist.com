@@ -1,32 +1,5 @@
 <template>
-  <div class="pb-20">
-    <Header />
-
-    <div class="max-w-6xl mx-auto flex px-6 xl:px-0">
-      <Sidebar />
-
-      <div class="flex-1 pt-20">
-        <Nuxt />
-      </div>
-    </div>
+  <div class="h-screen w-full flex items-center justify-center bg-gray-100">
+    <Nuxt />
   </div>
 </template>
-
-<style>
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-serif;
-}
-
-code {
-  @apply font-mono;
-}
-
-pre[class*="language-"] {
-  @apply font-mono text-sm;
-}
-</style>

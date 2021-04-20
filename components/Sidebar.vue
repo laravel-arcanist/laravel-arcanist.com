@@ -45,6 +45,10 @@ export default {
               label: "Steps",
             },
             {
+              to: "/actions",
+              label: "Actions",
+            },
+            {
               to: "/configuration",
               label: "Configuration",
             },

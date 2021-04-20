@@ -32,7 +32,7 @@ export default {
       {
         rel: "stylesheet",
         href:
-          "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap",
+          "https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,400&display=swap",
       },
     ],
   },

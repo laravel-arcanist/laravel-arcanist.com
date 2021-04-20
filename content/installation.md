@@ -2,6 +2,10 @@
 title: Installation
 ---
 
+<Epigraph author="Gildor Inglorion">
+  But it is said: Do not meddle in the affairs of wizards, for they are subtle and quick to anger. The choice is yours: to go or wait.
+</Epigraph>
+
 ## Requirements
 
 Arcanist requires PHP 8 and Laravel 8.

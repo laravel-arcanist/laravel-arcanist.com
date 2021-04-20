@@ -2,9 +2,13 @@
 title: Magical multi-step forms
 ---
 
-**Acarnist** provides a simple, yet powerful approach for adding multi-step form wizards to you Laravel application. It takes care of all the boring details so you can spend your time writing features, not boilerplate.
+<Epigraph author="Elminster Aumar, The Making of a Mage">
+    There are only two precious things on earth: the first is love; the second, a long way behind it, is intelligence.
+</Epigraph>
 
-Out of the box, **Arcanist** handles:
+<Arcanist></Arcanist> provides a simple, yet powerful approach for adding multi-step form wizards to you Laravel application. It takes care of all the boring details so you can spend your time writing features, not boilerplate.
+
+Out of the box, <Arcanist></Arcanist> handles:
 
 - Automatically registering all necessary routes for a wizard
 - Form validation
@@ -12,7 +16,7 @@ Out of the box, **Arcanist** handles:
 - Keeping track of which steps have already been completed
 - Resuming wizards at the last unfinished step
 
-Not only that, Arcanist is completely front-end agnostic. You can use it together with Blade, Inertia.js, or anything else to render your templates.
+Not only that, <Arcanist></Arcanist> is completely front-end agnostic. You can use it together with Blade, Inertia.js, or anything else to render your templates.
 
 <tabbed-code-example>
 

@@ -2,11 +2,14 @@
 title: Core concepts
 ---
 
-<Epigraph author="Gandalf, probably">
-    Getting really sick of your shit, Frodo.
+<Epigraph author="Prospero, The Tempest">
+    I'll break my staff,<br />
+    Bury it certain fathoms in the earth,<br />
+    And deeper than did ever plummet sound<br />
+    I'll drown my book.
 </Epigraph>
 
-Arcanist is an _opinionated_ package. This means that there are certain assumptions it makes in order to provide its functionality. While there are sometimes ways to stray from these assumptions, it is generally recommended to follow them as much as possible.
+<Arcanist></Arcanist> is an _opinionated_ package. This means that there are certain assumptions it makes in order to provide its functionality. While there are sometimes ways to stray from these assumptions, it is generally recommended to follow them as much as possible.
 
 ## Components of a wizard
 

@@ -2,4 +2,6 @@
 title: Wizards
 ---
 
-Every multi-step form is represented by a `Wizard` class.
+<Epigraph author="Getafix, Asterix and the Vikings">
+    Fear is what makes us brave. Real courage is when you overcome your fear.
+</Epigraph>

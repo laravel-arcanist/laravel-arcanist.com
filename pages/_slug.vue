@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-1 px-16">
-    <article class="prose xl:prose-lg prose-purple">
+    <article class="prose xl:prose-lg prose-purple w-full">
       <h1>{{ page.title }}</h1>
 
       <NuxtContent :document="page" />

@@ -1,12 +1,14 @@
 <template>
-  <figure class="px-10 w-full">
+  <figure class="w-full">
     <blockquote
-      class="italic text-2xl font-light font-serif text-gray-500 border-none"
+      class="italic text-2xl font-light font-serif text-gray-500 border-none px-20"
     >
       <slot />
     </blockquote>
 
-    <figcaption class="block text-right">&mdash; {{ author }}</figcaption>
+    <figcaption class="block text-right text-gray-500 px-12 italic">
+      &mdash; {{ author }}
+    </figcaption>
   </figure>
 </template>
 

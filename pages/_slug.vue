@@ -9,12 +9,18 @@
 </template>
 
 <script>
+import Prism from "~/plugins/prism";
+
 export default {
   async asyncData({ $content, params }) {
     const slug = params.slug || "index";
     const page = await $content(slug).fetch();
 
     return { page };
+  },
+
+  mounted() {
+    setTimeout(() => Prism.highlightAll(), 150);
   },
 };
 </script>

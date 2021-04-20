@@ -3,7 +3,7 @@
   <span class="inline-flex items-center font-bold">
     Arcanist
     <svg
-      class="w-4 h-4 ml-[2px] relative top-[1px]"
+      class="w-4 h-4 ml-[2px] relative top-[1px] transition duration-500 transform hover:rotate-[720deg]"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
     >

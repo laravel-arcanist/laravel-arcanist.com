@@ -18,6 +18,19 @@ export default {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png",
+      },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "preconnect", href: "https://fonts.gstatic.com" },
       {
         rel: "stylesheet",
@@ -45,10 +58,14 @@ export default {
 
   content: {
     liveEdit: false,
-    markdown: {},
+    markdown: {
+      prism: {
+        theme: false,
+      },
+    },
   },
 
-  plugins: ["~plugins/highlightjs.js"],
+  plugins: ["~plugins/prism.js"],
 
   tailwindcss: {
     jit: true,

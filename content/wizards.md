@@ -463,8 +463,8 @@ If you need full control over the redirect response, you can use the `onAfterCom
 namespace App\Wizards\Registration;
 
 use Illuminate\Http\RedirectResponse;
-use Sassnowski\Arcanist\ActionResult;
 use Sassnowski\Arcanist\AbstractWizard;
+use Sassnowski\Arcanist\Action\ActionResult;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\CreateUserAction;
 use App\Wizards\Registration\UploadUserAvatarStep;
@@ -506,12 +506,13 @@ class RegistrationWizard extends AbstractWizard
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\WizardAction;
+use Sassnowski\Arcanist\Action\WizardAction;
+use Sassnowski\Arcanist\Action\ActionResult;
 use App\Wizards\Registration\DTO\RegistrationData;
 
 class CreateUserAction extends WizardAction
 {
-    public function execute(RegistrationData $data): WizardResult
+    public function execute(RegistrationData $data): ActionResult
     {
         $user = /* ... */;
 

@@ -5,6 +5,10 @@
 
       <NuxtContent :document="page" />
     </article>
+
+    <Portal to="toc">
+      <TableOfContents :headings="page.toc" />
+    </Portal>
   </div>
 </template>
 

@@ -21,6 +21,7 @@
     "dedent-js": "^1.0.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "portal-vue": "^2.1.7",
     "postcss": "^8.2.8",
     "prettier": "^2.2.1",
     "prism-themes": "^1.6.0",

@@ -68,7 +68,7 @@ export default {
 <style>
 .tabbed-code-example pre[class*="language-"],
 .tabbed-code-example pre[data-line] {
-  @apply py-4 pl-12 pr-0;
+  @apply py-4 px-6;
 }
 
 .tabbed-code-example pre[class*="language-"] {

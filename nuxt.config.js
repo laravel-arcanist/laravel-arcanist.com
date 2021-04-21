@@ -65,7 +65,7 @@ export default {
     },
   },
 
-  plugins: ["~plugins/prism.js"],
+  plugins: ["~plugins/prism.js", "~plugins/portal.js"],
 
   tailwindcss: {
     jit: true,

@@ -38,13 +38,13 @@ You can use the `php artisan make:wizard` command to have <Arcanist></Arcanist> 
 
 </note>
 
-## Registering Wizards
+## Registering wizards
 
-Wizards don't get registered automatically, so right now, this wizard isn't doing anything. Let's change that by adding it to the `wizards` array in our `arcanist.php` config file.
+Before our wizard can do anything, it needs to be registered so <Arcanist></Arcanist> knows about it. We can do that by adding it to the `wizards` array in our `arcanist.php` config file.
 
 <tabbed-code-example>
 
-<code-tab name="arcanist.php">
+<code-tab name="config/arcanist.php">
 
 ```php{6}
 return [
@@ -157,7 +157,7 @@ Now that our wizard is no longer nameless, let's configure the `slug` next. The 
 
 When we looked at the routes that were registered above, we saw that they all contained `new-wizard`. This is because that’s the default `slug` provided by the `AbstractWizard` base class.
 
-To make your wizard cool and unique, you can provide a static `$slug` property yourself.
+To make your wizard cool and unique, you can (and should) overwrite the static `$slug` property.
 
 <tabbed-code-example>
 
@@ -266,7 +266,7 @@ After a step was submitted, <Arcanist></Arcanist> will automatically redirect to
 
 _“What action?”_ you might say. I’m glad you asked.
 
-### Configuring the action
+## Configuring the action
 
 True to their literary counterparts, wizards in <Arcanist></Arcanist> don’t actually do anything themselves. They instead delegate the actual work to a separate `Action` class once the last step of the wizard was submitted. Which class gets called is configured via the `onCompleteAction` property of the wizard.
 
@@ -311,3 +311,222 @@ Check out the page on [actions](/actions) for more information on how actions wo
 
 </note>
 
+### Controlling what gets passed to the action
+
+By default, the action gets passed an array containing all data that has been collected by the wizard’s steps. This data can be accessed using the `$this->data(?string $key, mixed $default = null)` method of the wizard.
+
+Sometimes you might want to transform the data before it gets passed to the action, however. You might want to transform the data array into a data transfer object (DTO), for example. You can do this by overwriting the `transformWizardData()` method.
+
+<tabbed-code-example>
+
+<code-tab name="RegistrationWizard.php">
+
+```php{9,26-38}
+<?php
+
+namespace App\Wizards\Registration;
+
+use Sassnowski\Arcanist\AbstractWizard;
+use App\Wizards\Registration\SelectPlanStep;
+use App\Wizards\Registration\CreateUserAction;
+use App\Wizards\Registration\UploadUserAvatarStep;
+use App\Wizards\Registration\DTO\RegistrationData;
+use App\Wizards\Registration\EmailAndPasswordStep;
+
+class RegistrationWizard extends AbstractWizard
+{
+    public static string $title = 'Join the fun';
+
+    public static string $slug = 'register';
+
+    protected array $steps = [
+        EmailAndPasswordStep::class,
+        SelectPlanStep::class,
+        UploadUserAvatarStep::class,
+    ];
+
+    protected string $onCompleteAction = CreateUserAction::class;
+
+    protected function transformWizardData(): mixed
+    {
+        $subscription = Subscription::find(
+            $this->data('subscription')
+        );
+
+        return new RegistrationData([
+            'email' => $this->data('email'),
+            'password' => $this->data('password'),
+            'subscription' => $subscription,
+            'avatarPath' => $this->data('avatarPath'),
+        ]);
+    }
+}
+```
+
+</code-tab>
+
+<code-tab name="RegistrationData.php">
+
+```php
+<?php
+
+namespace App\Wizards\Registration\DTO;
+
+final class RegistrationData
+{
+    public function __construct(
+        public string $email,
+        public string $password,
+        public Subscription $subscription,
+        public string $avatarPath
+    ) {
+    }
+}
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+## Redirecting after completing the wizard
+
+After the action was run successfully, <Arcanist></Arcanist> will redirect the user to a different page. The target of the redirect can be configured in multiple ways, both globally, as well as on a per-wizard basis.
+
+### Default redirect target
+
+If no explicit redirect target is defined in the wizard, <Arcanist></Arcanist> will fall back to using the route defined in the `redirect_url` key in the `arcanist.php` config file.
+
+<note title="Package configuration">
+
+Check out the [configuration](/configuration) section of the documentation for a complete list of all available configuration options.
+
+</note>
+
+### Wizard-specific redirects
+
+You probably want to redirect the user to a specific page based on the wizard most of the time. You can configure this in one of the following ways.
+
+For simple cases, you can implement the `redirectTo` method of the wizard and return the intended target URL.
+
+<tabbed-code-example>
+
+<code-tab name="RegistrationWizard.php">
+
+```php{28-31}
+<?php
+
+namespace App\Wizards\Registration;
+
+use Sassnowski\Arcanist\AbstractWizard;
+use App\Wizards\Registration\SelectPlanStep;
+use App\Wizards\Registration\CreateUserAction;
+use App\Wizards\Registration\UploadUserAvatarStep;
+use App\Wizards\Registration\DTO\RegistrationData;
+use App\Wizards\Registration\EmailAndPasswordStep;
+
+class RegistrationWizard extends AbstractWizard
+{
+    public static string $title = 'Join the fun';
+
+    public static string $slug = 'register';
+
+    protected array $steps = [
+        EmailAndPasswordStep::class,
+        SelectPlanStep::class,
+        UploadUserAvatarStep::class,
+    ];
+
+    protected string $onCompleteAction = CreateUserAction::class;
+
+    protected function transformWizardData(): mixed { /* ... */ }
+
+    protected function redirectTo(): string
+    {
+        return route('pages.dashboard');
+    }
+}
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+If you need full control over the redirect response, you can use the `onAfterComplete` method instead. This method is passed an `ActionResult` instance—which contains the result of calling the wizard’s action—and needs to return a `RedirectResponse`. This allows you to redirect to the detail page of a model that was created inside the action, for example.
+
+<tabbed-code-example>
+
+<code-tab name="RegistrationWizard.php">
+
+```php{5-6,30-36}
+<?php
+
+namespace App\Wizards\Registration;
+
+use Illuminate\Http\RedirectResponse;
+use Sassnowski\Arcanist\ActionResult;
+use Sassnowski\Arcanist\AbstractWizard;
+use App\Wizards\Registration\SelectPlanStep;
+use App\Wizards\Registration\CreateUserAction;
+use App\Wizards\Registration\UploadUserAvatarStep;
+use App\Wizards\Registration\DTO\RegistrationData;
+use App\Wizards\Registration\EmailAndPasswordStep;
+
+class RegistrationWizard extends AbstractWizard
+{
+    public static string $title = 'Join the fun';
+
+    public static string $slug = 'register';
+
+    protected array $steps = [
+        EmailAndPasswordStep::class,
+        SelectPlanStep::class,
+        UploadUserAvatarStep::class,
+    ];
+
+    protected string $onCompleteAction = CreateUserAction::class;
+
+    protected function transformWizardData(): mixed { /* ... */ }
+
+    protected function onAfterComplete(ActionResult $result): RedirectResponse
+    {
+        return redirect()->route(
+            'users.profile',
+            $result->get('user')
+        );
+    }
+}
+```
+
+</code-tab>
+
+<code-tab name="CreateUserAction.php">
+
+```php
+<?php
+
+namespace App\Wizards\Registration;
+
+use Sassnowski\Arcanist\WizardAction;
+use App\Wizards\Registration\DTO\RegistrationData;
+
+class CreateUserAction extends WizardAction
+{
+    public function execute(RegistrationData $data): WizardResult
+    {
+        $user = /* ... */;
+
+        // Lengthy process to create user, upload their avatar
+        // and subscribe them to their chosen plan.
+
+        return $this->success([
+            'user' => $user
+        ]);
+    }
+}
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+## Accessing the wizard’s data

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-1 px-16">
+  <div class="flex flex-1 overflow-hidden px-16 py-20">
     <article class="prose xl:prose-lg prose-purple w-full">
       <h1>{{ page.title }}</h1>
 

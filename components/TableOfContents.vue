@@ -1,12 +1,12 @@
 <template>
-  <div class="sticky top-0 w-48 pt-20">
+  <div class="sticky top-8">
     <h3
       class="font-semibold text-gray-400 text-xs uppercase tracking-widest font-sans"
     >
       Contents
     </h3>
 
-    <nav class="mt-3 space-y-2">
+    <nav class="mt-3 space-y-1">
       <SidebarLink
         v-for="heading in headings"
         :to="`#${heading.id}`"

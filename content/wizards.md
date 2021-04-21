@@ -311,7 +311,7 @@ Check out the page on [actions](/actions) for more information on how actions wo
 
 </note>
 
-### Controlling what gets passed to the action
+### Passing data to actions
 
 By default, the action gets passed an array containing all data that has been collected by the wizard’s steps. This data can be accessed using the `$this->data(?string $key, mixed $default = null)` method of the wizard.
 

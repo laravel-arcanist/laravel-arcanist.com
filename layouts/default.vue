@@ -5,11 +5,9 @@
     <div class="max-w-6xl mx-auto flex px-6 xl:px-0">
       <Sidebar />
 
-      <div class="flex-grow py-20">
-        <Nuxt />
-      </div>
+      <Nuxt />
 
-      <PortalTarget name="toc" class="hidden xl:block w-44" />
+      <PortalTarget name="toc" class="hidden xl:block w-44 flex-shrink-0 pt-20" />
     </div>
   </div>
 </template>

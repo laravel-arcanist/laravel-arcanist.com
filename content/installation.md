@@ -1,10 +1,11 @@
 ---
 title: Installation
----
+epigraph:
+  author: Gildor Inglorion, The Lord of the Rings
+  text: >
+    But it is said: Do not meddle in the affairs of wizards, for they are subtle and quick to anger. The choice is yours: to go or wait.
 
-<Epigraph author="Gildor Inglorion, The Lord of the Rings">
-  But it is said: Do not meddle in the affairs of wizards, for they are subtle and quick to anger. The choice is yours: to go or wait.
-</Epigraph>
+---
 
 ## Requirements
 
@@ -15,7 +16,7 @@ title: Installation
 Install via composer
 
 ```bash
-composer require sassnowski/arcanist
+composer require laravel-arcanist/arcanist
 ```
 
 ## Preparing your application
@@ -26,11 +27,17 @@ While <Arcanist></Arcanist> aims to be plug-and-play, there are a few things we 
 
 After the installation, you should publish its config files by running
 
+<tabbed-code-example>
+
+<code-tab>
+
 ```bash
-php artisan vendor:publish \
-  --provider="Sassnowski\\Arcanist\\ArcanistServiceProvider" \
-  --tag="arcanist-config"
+php artisan vendor:publish --tag="arcanist-config"
 ```
+
+</code-tab>
+
+</tabbed-code-example>
 
 This will publish an `arcanist.php` file into your application's `config` directory. Check out the [configuration](/configuration) page for a detailed overview of this file.
 

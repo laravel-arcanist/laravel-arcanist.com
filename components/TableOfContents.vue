@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-8">
+  <div v-if="headings.length > 0" class="sticky top-8">
     <h3
       class="font-semibold text-gray-400 text-xs uppercase tracking-widest font-sans"
     >

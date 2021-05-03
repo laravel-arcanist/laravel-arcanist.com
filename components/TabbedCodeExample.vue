@@ -20,7 +20,7 @@
       </div>
 
       <span
-        v-else-if="files.length === 1 && activeFile"
+        v-else-if="files.length === 1 && activeFile && activeFile.name"
         class="absolute top-0 right-0 mr-2 mt-2 px-2 py-1 rounded-lg bg-gray-500 text-gray-100 text-xs z-10"
       >
         {{ activeFile.name }}

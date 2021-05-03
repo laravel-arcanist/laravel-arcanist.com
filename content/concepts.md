@@ -1,13 +1,14 @@
 ---
 title: Core concepts
----
-
-<Epigraph author="Prospero, The Tempest">
-    I'll break my staff,<br />
-    Bury it certain fathoms in the earth,<br />
-    And deeper than did ever plummet sound<br />
+epigraph:
+  author: Prospero, The Tempest
+  text: |
+    I'll break my staff,
+    Bury it certain fathoms in the earth,
+    And deeper than did ever plummet sound
     I'll drown my book.
-</Epigraph>
+
+---
 
 <Arcanist></Arcanist> is an _opinionated_ package. This means that there are certain assumptions it makes in order to provide its functionality. While there are sometimes ways to stray from these assumptions, it is generally recommended to follow them as much as possible.
 

@@ -1,16 +1,16 @@
 ---
 title: Wizards
+epigraph:
+    author: Getafix, Asterix and the Vikings
+    text: >
+        Fear is what makes us brave. Real courage is when you overcome your fear.
 ---
-
-<Epigraph author="Getafix, Asterix and the Vikings">
-    Fear is what makes us brave. Real courage is when you overcome your fear.
-</Epigraph>
 
 The `Wizard` is the top-level component of your form.
 
 ## Creating new wizards
 
-All wizards extend from `Sassnowski\Arcanist\AbstractWizard`. This base class provides almost all the functionality you need out of the box. It takes care of navigating between steps, handling form submissions and providing shared data that should be available to all steps.
+All wizards extend from `Arcanist\AbstractWizard`. This base class provides almost all the functionality you need out of the box. It takes care of navigating between steps, handling form submissions and providing shared data that should be available to all steps.
 
 <tabbed-code-example>
 
@@ -21,7 +21,7 @@ All wizards extend from `Sassnowski\Arcanist\AbstractWizard`. This base class pr
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 
 class RegistrationWizard extends AbstractWizard
 {
@@ -105,7 +105,7 @@ Every good wizard needs a name. To give your wizard a name, you can overwrite th
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 
 class RegistrationWizard extends AbstractWizard
 {
@@ -128,7 +128,7 @@ If you need more control, for example because you want to localize your wizard�
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 
 class RegistrationWizard extends AbstractWizard
 {
@@ -168,7 +168,7 @@ To make your wizard cool and unique, you can (and should) overwrite the static `
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 
 class RegistrationWizard extends AbstractWizard
 {
@@ -225,7 +225,7 @@ Our wizard now has a name and slick URLs, but it’s not actually _doing_ anythi
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\UploadUserAvatarStep;
 use App\Wizards\Registration\EmailAndPasswordStep;
@@ -279,7 +279,7 @@ True to their literary counterparts, wizards in <Arcanist></Arcanist> don’t ac
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\CreateUserAction;
 use App\Wizards\Registration\UploadUserAvatarStep;
@@ -326,7 +326,7 @@ Sometimes you might want to transform the data before it gets passed to the acti
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\CreateUserAction;
 use App\Wizards\Registration\UploadUserAvatarStep;
@@ -417,7 +417,7 @@ For simple cases, you can implement the `redirectTo` method of the wizard and re
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\AbstractWizard;
+use Arcanist\AbstractWizard;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\CreateUserAction;
 use App\Wizards\Registration\UploadUserAvatarStep;
@@ -463,8 +463,8 @@ If you need full control over the redirect response, you can use the `onAfterCom
 namespace App\Wizards\Registration;
 
 use Illuminate\Http\RedirectResponse;
-use Sassnowski\Arcanist\AbstractWizard;
-use Sassnowski\Arcanist\Action\ActionResult;
+use Arcanist\AbstractWizard;
+use Arcanist\Action\ActionResult;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\CreateUserAction;
 use App\Wizards\Registration\UploadUserAvatarStep;
@@ -506,13 +506,16 @@ class RegistrationWizard extends AbstractWizard
 
 namespace App\Wizards\Registration;
 
-use Sassnowski\Arcanist\Action\WizardAction;
-use Sassnowski\Arcanist\Action\ActionResult;
+use Arcanist\Action\WizardAction;
+use Arcanist\Action\ActionResult;
 use App\Wizards\Registration\DTO\RegistrationData;
 
 class CreateUserAction extends WizardAction
 {
-    public function execute(RegistrationData $data): ActionResult
+    /**
+     * @param RegistrationData $data
+     */
+    public function execute($data): ActionResult
     {
         $user = /* ... */;
 
@@ -529,5 +532,3 @@ class CreateUserAction extends WizardAction
 </code-tab>
 
 </tabbed-code-example>
-
-## Accessing the wizard’s data

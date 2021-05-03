@@ -1,10 +1,10 @@
 ---
 title: Magical multi-step forms
+epigraph:
+    author: Elminster Aumar, The Making of a Mage
+    text: >
+        There are only two precious things on earth: the first is love; the second, a long way behind it, is intelligence.
 ---
-
-<Epigraph author="Elminster Aumar, The Making of a Mage">
-    There are only two precious things on earth: the first is love; the second, a long way behind it, is intelligence.
-</Epigraph>
 
 <Arcanist></Arcanist> provides a simple, yet powerful approach for adding multi-step form wizards to you Laravel application. It takes care of all the boring details so you can spend your time writing features, not boilerplate.
 
@@ -30,6 +30,11 @@ class RegistrationWizard extends AbstractWizard
 
     protected string $onCompleteAction = RegisterUser::class;
 
+    public static function middleware(): array
+    {
+        return ['guest'];
+    }
+
     protected array $steps = [
         EmailAndPassword::class,
         SelectSubscription::class,
@@ -46,12 +51,6 @@ class EmailAndPassword extends WizardStep
 {
     public string $name = 'Enter username and password';
     public string $slug = 'username';
-
-    public function isComplete(): bool
-    {
-        return $this->data('email') !== null
-            && $this->data('password') !== null;
-    }
 
     public function viewData(Request $request): array
     {
@@ -70,11 +69,14 @@ class EmailAndPassword extends WizardStep
         return $this->success($payload)
     }
 
-    protected function rules(): array
+    protected function fields(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', 'min:10'],
+            Field::make('email')
+                ->rules(['required', 'email', 'unique:users,email']),
+
+            Field::make('password')
+                ->rules(['required', 'confirmed', 'min:10']),
         ];
     }
 }
@@ -90,14 +92,6 @@ class SelectSubscription extends WizardStep
     public string $name = 'Select subscription';
     public string $slug = 'select-subscription';
 
-    public function isComplete(): bool
-    {
-        // Since this is the last step in the wizard, it
-        // will never be "complete" since completing it
-        // means completing the entire wizard.
-        return false;
-    }
-
     public function viewData(Request $request): array
     {
         return $this->withFormData([
@@ -105,13 +99,11 @@ class SelectSubscription extends WizardStep
         ]);
     }
 
-    protected function rules(): array
+    protected function fields(): array
     {
         return [
-            'subscription' => [
-                'required',
-                'valid-subscription',
-            ],
+            Field::make('subscriptions')
+                ->rules(['required', 'valid-subscription]),
         ];
     }
 }

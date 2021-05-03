@@ -1,11 +1,19 @@
 <template>
   <NuxtLink
+    v-if="!disabled"
     :to="to"
     class="py-1 w-full inline-block tracking-wide"
     :class="linkClasses"
   >
     <slot></slot>
   </NuxtLink>
+
+  <span
+    v-else
+    class="py-1 w-full inline-block tracking-wide font-light italic text-gray-400"
+  >
+    <slot></slot>
+  </span>
 </template>
 
 <script>
@@ -14,6 +22,10 @@ export default {
     to: {
       type: String,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 

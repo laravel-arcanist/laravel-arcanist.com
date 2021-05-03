@@ -25,15 +25,19 @@ export default {
               to: "/installation",
               label: "Installation",
             },
+            {
+              to: "/concepts",
+              label: "Core concepts",
+            },
+            {
+              to: "/getting-started",
+              label: "Getting started",
+            },
           ],
         },
         {
           label: "The basics",
           items: [
-            {
-              to: "/concepts",
-              label: "Core concepts",
-            },
             {
               to: "/wizards",
               label: "Wizards",
@@ -41,14 +45,17 @@ export default {
             {
               to: "/steps",
               label: "Steps",
+              disabled: true,
             },
             {
               to: "/actions",
               label: "Actions",
+              disabled: true,
             },
             {
               to: "/configuration",
               label: "Configuration",
+              disabled: true,
             },
           ],
         },
@@ -58,18 +65,27 @@ export default {
             {
               to: "/events",
               label: "Events",
+              disabled: true,
             },
             {
               to: "/hooks",
               label: "Hooks",
+              disabled: true,
             },
             {
               to: "/business-logic-in-steps",
               label: "Business logic in steps",
+              disabled: true,
             },
             {
               to: "/dependencies-between-steps",
               label: "Dependencies between steps",
+              disabled: true,
+            },
+            {
+              to: "/dealing-with-expired-wizards",
+              label: "Dealing with expired wizards",
+              disabled: true,
             },
           ],
         },
@@ -79,10 +95,12 @@ export default {
             {
               to: "/writing-repositories",
               label: "Custom Wizard repositories",
+              disabled: true,
             },
             {
               to: "/writing-response-renderers",
               label: "Response renderers",
+              disabled: true,
             },
           ],
         },

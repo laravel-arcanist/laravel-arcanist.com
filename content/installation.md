@@ -32,14 +32,14 @@ After the installation, you should publish its config files by running
 <code-tab>
 
 ```bash
-php artisan vendor:publish --tag="arcanist-config"
+php artisan vendor:publish --provider="Arcanist\\ArcanistServiceProvider"
 ```
 
 </code-tab>
 
 </tabbed-code-example>
 
-This will publish an `arcanist.php` file into your application's `config` directory. Check out the [configuration](/configuration) page for a detailed overview of this file.
+This will publish an `arcanist.php` file into your application's `config` directory.
 
 ### Running the migrations
 

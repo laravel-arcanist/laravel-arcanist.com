@@ -26,12 +26,13 @@ export default {
               label: "Installation",
             },
             {
-              to: "/concepts",
-              label: "Core concepts",
-            },
-            {
               to: "/getting-started",
               label: "Getting started",
+            },
+            {
+              to: "/concepts",
+              label: "Core concepts",
+              disabled: true,
             },
           ],
         },
@@ -41,6 +42,7 @@ export default {
             {
               to: "/wizards",
               label: "Wizards",
+              disabled: true,
             },
             {
               to: "/steps",

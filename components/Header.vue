@@ -9,8 +9,9 @@
         <div class="space-x-4 flex items-center">
           <input
             type="text"
-            class="rounded-full bg-white border py-2 px-6 border-gray-300 focus:border-indigo-700"
-            placeholder="Search"
+            class="rounded-full bg-gray-100 border py-2 px-6 border-gray-300"
+            placeholder="Search (coming soon)"
+            disabled
           />
 
           <a

@@ -6,21 +6,12 @@ epigraph:
         The willow submits to the wind and prospers until one day it is many willows—a wall against the wind. This is the willow’s purpose.
 ---
 
-This page is meant as an example to get you started with <Arcanist></Arcanist> as quickly as possible. For more information about how to customize your wizard to fit your application’s needs, check the [next section](/wizards) of the documentation.
+This page is meant as an example to get you started with <Arcanist></Arcanist> as quickly as possible ~~as long as the rest of the documentation is still in shambles~~.
 
 ## Creating the wizard
 
-The easiest way to create a wizard is to use the `make:wizard` command that comes with <Arcanist></Arcanist>. We can also generate an action as well by providing the `--create-action` (`-a` for short).
+To get started, let’s create a new folder called `Wizards` in our `app` directory. Inside this folder, let’s create another folder called `Registration`. In here, we add a new class called `RegistrationWizard` which will be the starting point of our wizard.
 
-```
-php artisan make:wizard RegistrationWizard --create-action
-```
-
-This will create a new `RegistrationWizard.php` and `RegistrationAction.php` file inside the `app/Wizards/Registration` folder of your application.
-
-As a convention, <Arcanist></Arcanist> uses the first part of your wizard’s name to prefill some of the wizards information, like the name of the folder, the wizards slug and name, and (if provided) the name of the action.
-
-Here’s what our generated wizard and action look like out of the box:
 
 <tabbed-code-example>
 
@@ -60,45 +51,18 @@ class RegistrationWizard extends AbstractWizard
 
 </code-tab>
 
-<code-tab name="RegistrationAction.php">
-
-```php
-<?php
-
-namespace App\Wizards\Registration;
-
-use Arcanist\Action\WizardAction;
-use Arcanist\Action\ActionResult;
-
-class RegistrationAction extends WizardAction
-{
-    public function execute($payload): ActionResult
-    {
-        return $this->success();
-    }
-}
-```
-
-</code-tab>
-
 </tabbed-code-example>
+
+The folder structure doesn’t actually matter. But since each wizard will consist of multiple classes it makes sense to group them like this.
 
 Let’s quickly go through the different fields that are included in the wizard scaffolding and what they’re used for:
 
 - `$title` - This should be a human-readable title for your wizard. While this will not be displayed anywhere by default, it gets passed to your templates so you can display it the frontend.
 - `$slug` - The slug gets used for the URLs and route names that get registered for a wizard, as well as resolving the path to the wizard’s templates (more on that later).
-- `$onCompleteAction` - The action that gets called after the last step of the wizard was successfully completed. The action is where the actual business logic of your form should happen. See [Core concepts](/concepts) for more information on this.
+- `$onCompleteAction` - The action that gets called after the last step of the wizard was successfully completed. The action is where the actual business logic of your form should happen. I’ve already prefilled a class called `RegistrationAction` which we will create [later](/getting-started#actions) in this tutorial.
 - `$steps` - The list of steps that make up the wizard. Note that the order in which steps are listed here is important since <Arcanist></Arcanist> uses that to determine which step comes next and when the wizard is complete.
 - `middleware()` - If you want to register custom middleware for a specific wizard, you can implement this method. It should return an array of _additional_ middleware which will get merged with the global middleware configured in the `arcanist.php` config file.
 - `sharedData()` - If you have data that should be shared with each step, you can configure this here. This will get merged with the `viewData` of the step itself.
-
-
-<note title="Deleting unneeded scaffolding">
-
-The `make` command creates quite a bit of scaffolding you might not necessarily need. For instance, if you don't plan to change the `middleware` or `sharedData` methods, you can safely delete them from your wizard class.
-
-</note>
-
 
 ### Registering the wizard
 
@@ -151,17 +115,10 @@ If you try to visit any of these routes right now, however, you will get an exce
 
 ## Defining Steps
 
-To create a new step for our `RegistrationWizard`, we can use the `make:wizard-step` command that ships with <Arcanist></Arcanist>. To keep this example simple, our wizard will only consist of two steps:
+To keep this example simple, our wizard will only consist of two steps:
 
 - `UsernameAndPasswordStep` which gathers the user’s username and password (shocker!)
 - `AnnoyingNewsletterStep` where we will try to trick the user into signing up for our wizard-related newsletter
-
-```
-php artisan make:wizard-step RegistrationWizard UsernameAndPasswordStep
-php artisan make:wizard-step RegistrationWizard AnnyoingNewsletterStep
-```
-
-The first parameter is the name of the wizard for which you want to generate a step. This will make sure that the step gets created in the correct folder. The second parameter is the name of the step itself.
 
 <note title="Note">
 
@@ -169,7 +126,7 @@ Since a wizard with only a single step is just a form, every wizard needs **at l
 
 </note>
 
-Here’s what our newly generated steps look like.
+Let’s create a new folder `Steps` and add the following two classes:
 
 <tabbed-code-example>
 
@@ -242,12 +199,6 @@ class AnnoyingNewsletterStep extends WizardStep
 </code-tab>
 
 </tabbed-code-example>
-
-<note title="Business logic in steps">
-
-If you need to perform additional business logic in a step—like uploading a user’s profile picture—check out [this page](/business-logic-in-steps).
-
-</note>
 
 Before we forget, let’s make sure to add these steps to our wizard’s `$step` array.
 
@@ -339,6 +290,8 @@ Field::make('username')
     ->rules(['required', 'unique:users,username'])
 ```
 
+With this information, <Arcanist></Arcanist> will use Laravel’s request validation to check the incoming request for the step. This means that in your blade templates you can use Laravel’s built-in `@error` directive to conditionally display validation errors.
+
 Here’s what our steps look like after filling in the field definitions.
 
 <tabbed-code-example>
@@ -401,6 +354,15 @@ class AnnoyingNewsletterStep extends WizardStep
 </code-tab>
 
 </tabbed-code-example>
+
+
+<note title="Important">
+
+The user’s password would currently get saved as plaintext in the wizard’s data. There are ways to hook into the step’s lifecycle to make sure that we encrypt the password before saving it. To keep this example simple, we will not do this here.
+
+Check out the page about [steps](/steps) to learn more.
+
+</note>
 
 
 ### Passing data to view
@@ -476,4 +438,176 @@ You can access any data—from any step—that has previously been collected by 
 </note>
 
 
-## Where are the views?
+## Views
+
+<Arcanist></Arcanist> is completely frontend agnostic. As such, it does not come with any templates. Views are highly application-specific and there is really no sensible defaults this package could provide.
+
+Instead, you’re supposed to create your own views for each step of the wizard. Out of the box, <Arcanist></Arcanist> ships only with a Blade based template renderer. The way it tries to resolve the path of a step’s template is by using the following convention:
+
+```
+/resources/views/wizards/{wizardSlug}/{stepSlug}.blade.php
+```
+
+So in our example, <Arcanist></Arcanist> expects the template for our `UsernameAndPasswordStep` to exist at
+
+```
+/resources/views/wizards/registration/username-and-password.blade.php
+```
+
+Once we create this file, we can now navigate to `/wizard/registration` and view the first step in our wizard.
+
+### Accessing data in a view
+
+Every step template gets passed two pieces of data by <Arcanist></Arcanist>.
+
+- Metadata about the current wizard and its steps, accessible via the `$wizard` variable in our template
+- The step-specific data defined in the `viewData` method of the step, accessible via the `$step` variable
+
+In our example, the `$wizard` variable would contain the following data:
+
+
+<tabbed-code-example>
+
+<code-tab name="$wizard">
+
+```php
+[
+    'id' => null,
+    'title' => 'Registration',
+    'slug' => 'registration',
+    'steps' => [
+        [
+            'slug' => 'username-and-password',
+            'isComplete' => false,
+            'title' => 'Username and Password',
+            'active' => true,
+            'url' => null,
+        ],
+        [
+            'slug' => 'annoying-newsletter',
+            'isComplete' => false,
+            'title' => 'Annoying Newsletter',
+            'active' => false,
+            'url' => null,
+        ]
+    ]
+]
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+The wizard’s id is current `null` since we’re viewing the wizard for the first time. Only after the user has successfully submitted the first step will <Arcanist></Arcanist> start keeping track of the wizard.
+
+The `steps` key contains the list of all steps that have been registered for the wizard, together with metadata about each of them.
+
+- `slug` - The step’s slug
+- `isComplete` - If the step has already been completed. <Arcanist></Arcanist> keeps track of this behind the scenes. You can use this value to style completed steps differently in your templates, for example.
+- `title` - The step’s title.
+- `active` - If the step is the currently active one (i.e. we’re viewing its template). Again, this can be used to highlight the current step in your UI.
+- `url` - The url to the step. This is currently empty, because the wizard has not been saved yet.
+
+Using this data, you can build up the UI of your wizard. Since the data inside `$wizard` stays the same across all steps of a wizard, it is a good candidate to be extracted into a layout or Blade component that can then be reused for all wizards. Only the step templates have to be created individually.
+
+
+## Actions
+
+After the last step in a wizard was successfully completed, <Arcanist></Arcanist> will call then call the wizard’s configured `$onCompleteAction`.
+
+A big design idea of <Arcanist></Arcanist> is that the steps don’t perform any business logic. All they do is collect data that will then be handed of to the action at the end of the wizard. Actions are the place where your actual business logic happens.
+
+Let’s create a simple `RegistrationAction` for our wizard:
+
+<tabbed-code-example>
+
+<code-tab name="RegistrationAction.php">
+
+```php
+<?php
+
+namespace App\Wizards\Registration;
+
+use Arcanist\Action\WizardAction;
+use Arcanist\Action\ActionResult;
+
+class RegistrationAction extends WizardAction
+{
+    public function execute($payload): ActionResult
+    {
+        return $this->success();
+    }
+}
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+An action is simply a class which extends from `WizardAction`. This class needs to implement a single method `execute` which gets passed the wizard’s data and needs to return an `ActionResult`.
+
+### Action results
+
+To no one’s surprise, an `ActionResult` represents the result of calling a wizard’s action. Since it’s possible that an exception might occur inside the action, an `ActionResult` can represent both a successful and a failed state. <Arcanist></Arcanist> handles this state internally to either complete the wizard (and delete it) or redirect back to the last step with an error.
+
+
+<tabbed-code-example>
+
+<code-tab name="RegistrationAction.php">
+
+```php
+class RegistrationAction extends WizardAction
+{
+    // You can type-hint dependencies in the action’s
+    // constructor.
+    public function __construct(
+        private NaughtyWizardsNewsletter $newsletter
+    ) {}
+
+    public function execute($payload): ActionResult
+    {
+        $user = User::create([
+            'username' => $payload['username'],
+            'password' => bcrypt($payload['password'])
+        ]);
+
+        if ($payload['newsletter']) {
+            try {
+                $this->newsletter->subscribe($user);
+            } catch (NewsletterSubscriptionException $e) {
+                return $this->error(
+                    'Sorry but we were unable to subscribe you to ' .
+                    'our "Wizards Gone Wild" newsletter'
+                );
+            }
+        }
+
+        return $this->success(['user' => $user]);
+    }
+}
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+If the action returns a failed result (by using `$this->error(...)`), we can access the error message in our templates via the `wizard` key in the error bag.
+
+<tabbed-code-example>
+
+<code-tab name="annoying-newsletter.blade.php">
+
+```html
+@error('wizard')
+    <div class="bg-red-300 text-red-700 px-6 py-4">
+        <span class="font-semibold">Whoops!</span>
+        {{ $message }}
+    </div>
+@enderror
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+In case you need to pass data back to the wizard from the action, you can provide an associative array to the `success` method of the action.

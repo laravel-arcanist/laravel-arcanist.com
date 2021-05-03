@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-1 overflow-hidden px-16 py-20">
     <article class="prose xl:prose-lg prose-purple w-full">
-      <h1>{{ page.title }}</h1>
+      <WorkInProgressBanner />
+
+      <h1 class="mt-6">{{ page.title }}</h1>
 
       <Epigraph
         v-if="page.epigraph"

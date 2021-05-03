@@ -30,15 +30,15 @@ class RegistrationWizard extends AbstractWizard
 
     protected string $onCompleteAction = RegisterUser::class;
 
-    public static function middleware(): array
-    {
-        return ['guest'];
-    }
-
     protected array $steps = [
         EmailAndPassword::class,
         SelectSubscription::class,
     ];
+
+    public static function middleware(): array
+    {
+        return ['guest'];
+    }
 }
 ```
 
@@ -52,18 +52,10 @@ class EmailAndPassword extends WizardStep
     public string $name = 'Enter username and password';
     public string $slug = 'username';
 
-    public function viewData(Request $request): array
-    {
-        return [
-            'email' => $this->data('email'),
-        ];
-    }
-
     protected function handle(
         Request $request,
         array $payload
     ): StepResult {
-        // Make sure we don't accidentally save a plaintext password.
         $payload['password'] = bcrypt($payload['password']);
 
         return $this->success($payload)

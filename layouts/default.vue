@@ -2,15 +2,30 @@
   <div>
     <Header />
 
-    <div class="max-w-6xl mx-auto flex px-6 xl:px-0">
-      <Sidebar />
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row px-6 xl:px-0">
+      <Navigation
+        class="hidden md:block w-56 flex-shrink-0 space-y-10 border-r border-gray-200 pt-20"
+      />
 
       <Nuxt />
 
-      <PortalTarget name="toc" class="hidden xl:block w-44 flex-shrink-0 pt-20" />
+      <PortalTarget
+        name="toc"
+        class="hidden lg:block w-44 flex-shrink-0 pt-20"
+      />
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      open: false,
+    };
+  },
+};
+</script>
 
 <style>
 h1,

@@ -7,10 +7,10 @@
     </figcaption>
 
     <ul class="space-y-1 mt-2">
-      <li v-for="item in items" :key="item.to" class="pr-3">
-        <SidebarLink :to="item.to" :disabled="item.disabled">
+      <li v-for="item in items" :key="item.to" class="md:pr-3">
+        <NavLink :to="item.to" :disabled="item.disabled">
           {{ item.label }}
-        </SidebarLink>
+        </NavLink>
       </li>
     </ul>
   </figure>

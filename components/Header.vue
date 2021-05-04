@@ -9,7 +9,7 @@
         <div class="space-x-4 flex items-center">
           <input
             type="text"
-            class="rounded-full bg-gray-100 border py-2 px-6 border-gray-300"
+            class="rounded-full bg-gray-100 border py-2 px-6 border-gray-300 hidden md:block"
             placeholder="Search (coming soon)"
             disabled
           />
@@ -31,11 +31,47 @@
               />
             </svg>
           </a>
+
+          <div class="flex items-center relative md:hidden">
+            <button
+              type="button"
+              class="focus:outline-none"
+              @click="showNav = true"
+            >
+              <svg
+                class="block fill-current text-gray-600 w-6 h-6"
+                viewBox="0 0 20 20"
+              >
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+              </svg>
+            </button>
+
+            <Navigation
+              v-if="showNav"
+              class="absolute z-20 top-[120%] right-0 bg-white rounded shadow p-4 text-sm whitespace-nowrap space-y-6"
+            />
+
+            <div
+              v-if="showNav"
+              class="bg-transparent fixed top-0 left-0 h-full w-full z-10"
+              @click="showNav = false"
+            ></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showNav: false,
+    };
+  },
+};
+</script>
 
 <style scoped>
 .header {

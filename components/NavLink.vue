@@ -36,7 +36,7 @@ export default {
 
     linkClasses() {
       return this.active
-        ? "bg-indigo-100 text-indigo-800 rounded-r-sm border-l-4 border-indigo-400 pl-3 pr-2 -ml-3 bg-opacity-75"
+        ? "bg-indigo-100 text-indigo-800 rounded-r-sm border-l-4 border-indigo-400 pl-3 pr-2 -ml-2 md:-ml-3 bg-opacity-75"
         : "text-gray-600 transition duration-150 hover:text-purple-700";
     },
   },

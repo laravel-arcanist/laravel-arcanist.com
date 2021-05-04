@@ -7,14 +7,14 @@
     </h3>
 
     <nav class="mt-3 space-y-1">
-      <SidebarLink
+      <NavLink
         v-for="heading in headings"
         :to="`#${heading.id}`"
         :key="heading.id"
         :class="{ 'pl-6': heading.depth === 3 }"
       >
         {{ heading.text }}
-      </SidebarLink>
+      </NavLink>
     </nav>
   </div>
 </template>

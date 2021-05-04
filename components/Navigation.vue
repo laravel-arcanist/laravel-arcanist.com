@@ -1,6 +1,6 @@
 <template>
-  <nav class="w-56 flex-shrink-0 space-y-10 border-r border-gray-200 pt-20">
-    <SidebarSection
+  <nav>
+    <NavigationSection
       v-for="(section, i) in sections"
       :key="i"
       :title="section.label"

@@ -360,8 +360,6 @@ class AnnoyingNewsletterStep extends WizardStep
 
 The user’s password would currently get saved as plaintext in the wizard’s data. There are ways to hook into the step’s lifecycle to make sure that we encrypt the password before saving it. To keep this example simple, we will not do this here.
 
-Check out the page about [steps](/steps) to learn more.
-
 </note>
 
 

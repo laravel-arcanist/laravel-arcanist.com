@@ -1,10 +1,10 @@
 ---
 title: Steps
----
-
-<Epigraph author="Vilgefortz of Roggeveen, Time of Contempt (The Witcher)">
+epigraph:
+  author: Vilgefortz of Roggeveen, Time of Contempt (The Witcher)
+  text: >
     You mistake stars reflected in a pond for the night sky.
-</Epigraph>
+---
 
 ## Creating a new step
 

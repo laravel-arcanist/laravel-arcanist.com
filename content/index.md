@@ -95,7 +95,7 @@ class SelectSubscription extends WizardStep
     {
         return [
             Field::make('subscriptions')
-                ->rules(['required', 'valid-subscription]),
+                ->rules(['required', 'valid-subscription']),
         ];
     }
 }

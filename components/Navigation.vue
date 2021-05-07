@@ -32,6 +32,10 @@ export default {
             {
               to: "/concepts",
               label: "Core concepts",
+            },
+            {
+              to: "/configuration",
+              label: "Configuration",
               disabled: true,
             },
           ],
@@ -52,11 +56,6 @@ export default {
             {
               to: "/actions",
               label: "Actions",
-              disabled: true,
-            },
-            {
-              to: "/configuration",
-              label: "Configuration",
               disabled: true,
             },
           ],

@@ -75,9 +75,9 @@ export default {
 
 <style scoped>
 .header {
-  @apply bg-indigo-500 bg-no-repeat bg-center bg-cover;
+  @apply bg-no-repeat bg-center bg-cover;
 
+  background-color: #f5f6f7;
   background-image: url(~assets/img/header.png);
-  background-blend-mode: luminosity;
 }
 </style>

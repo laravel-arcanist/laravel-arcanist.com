@@ -6,7 +6,7 @@ epigraph:
         There are only two precious things on earth: the first is love; the second, a long way behind it, is intelligence.
 ---
 
-<Arcanist></Arcanist> provides a simple, yet powerful approach for adding multi-step form wizards to you Laravel application. It takes care of all the boring details so you can spend your time writing features, not boilerplate.
+<Arcanist></Arcanist> provides a simple, yet powerful approach for adding multi-step form wizards to your Laravel application. It takes care of all the boring details so you can spend your time writing features, not boilerplate.
 
 Out of the box, <Arcanist></Arcanist> handles:
 

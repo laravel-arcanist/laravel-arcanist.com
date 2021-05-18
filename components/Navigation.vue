@@ -26,12 +26,17 @@ export default {
               label: "Installation",
             },
             {
-              to: "/getting-started",
-              label: "Getting started",
-            },
-            {
               to: "/concepts",
               label: "Core concepts",
+            },
+          ],
+        },
+        {
+          label: "Up and running",
+          items: [
+            {
+              to: "/getting-started",
+              label: "Getting started",
             },
             {
               to: "/configuration",

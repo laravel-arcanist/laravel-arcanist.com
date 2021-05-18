@@ -208,7 +208,7 @@ Ah, much better.
 
 <note title="Configuring the route prefix">
 
-By default, <Arcanist></Arcanist> uses the `wizard` prefix for all routes. This can be configured via the `route_prefix` option in the `arcanist.php` config file. Check out the [configuration](/configuration) page for reference.
+By default, <Arcanist></Arcanist> uses the `wizard` prefix for all routes. This can be configured via the `route_prefix` option in the `arcanist.php` config file. Check out the [configuration](/configuration#configuring-the-route-prefix) page for reference.
 
 </note>
 
@@ -462,9 +462,9 @@ If you need full control over the redirect response, you can use the `onAfterCom
 
 namespace App\Wizards\Registration;
 
-use Illuminate\Http\RedirectResponse;
 use Arcanist\AbstractWizard;
 use Arcanist\Action\ActionResult;
+use Illuminate\Http\RedirectResponse;
 use App\Wizards\Registration\SelectPlanStep;
 use App\Wizards\Registration\CreateUserAction;
 use App\Wizards\Registration\UploadUserAvatarStep;

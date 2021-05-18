@@ -36,7 +36,6 @@ export default {
             {
               to: "/configuration",
               label: "Configuration",
-              disabled: true,
             },
           ],
         },

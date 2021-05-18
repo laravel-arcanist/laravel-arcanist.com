@@ -6,11 +6,11 @@ epigraph:
         Fear is what makes us brave. Real courage is when you overcome your fear.
 ---
 
-The `Wizard` is the top-level component of your form.
+The `Wizard` is the top-level component of your form. It takes care of navigating between steps, handling form submissions and providing shared data that should be available to all steps.
 
 ## Creating new wizards
 
-All wizards extend from `Arcanist\AbstractWizard`. This base class provides almost all the functionality you need out of the box. It takes care of navigating between steps, handling form submissions and providing shared data that should be available to all steps.
+All wizards extend from `Arcanist\AbstractWizard`. This base class provides almost all the functionality you need out of the box.
 
 <tabbed-code-example>
 
@@ -32,15 +32,15 @@ class RegistrationWizard extends AbstractWizard
 
 </tabbed-code-example>
 
-<note title="Generating Wizards">
+<!--note title="Generating Wizards">
 
 You can use the `php artisan make:wizard` command to have <Arcanist></Arcanist> ~conjure~ generate a new wizard skeleton for you.
 
-</note>
+</note-->
 
 ## Registering wizards
 
-Before our wizard can do anything, it needs to be registered so <Arcanist></Arcanist> knows about it. We can do that by adding it to the `wizards` array in our `arcanist.php` config file.
+Before our wizard can do anything, it needs to be registered so <Arcanist></Arcanist> knows about it. We can do so by adding it to the `wizards` array in our `arcanist.php` config file.
 
 <tabbed-code-example>
 
@@ -86,7 +86,7 @@ If we check our application routes now using `php artisan route:list`, we would 
 
 </tabbed-code-example>
 
-These look like fairly straight-forward CRUD routes, but why are they all called `new-wizard`? This is because we haven't really configured our wizard yet, so <Arcanist></Arcanist> falls back to the defaults defined in the `AbstractWizard` base class.
+Since we haven’t really configured our wizard yet, <Arcanist></Arcanist> falls back to the defaults defined in the `AbstractWizard` base class. This why currently all routes are called `new-wizard`.
 
 ## Filling in the details
 
@@ -117,7 +117,7 @@ class RegistrationWizard extends AbstractWizard
 
 </tabbed-code-example>
 
-If you need more control, for example because you want to localize your wizard’s title, you can alternatively override the `title()` method instead.
+If you need more control, for example because you want to localize your wizard’s title, you can override the `title()` method instead.
 
 <tabbed-code-example>
 
@@ -398,7 +398,7 @@ If no explicit redirect target is defined in the wizard, <Arcanist></Arcanist> w
 
 <note title="Package configuration">
 
-Check out the [configuration](/configuration) section of the documentation for a complete list of all available configuration options.
+Check out the [configuration](/configuration#default-redirection-target) section of the documentation for a complete list of all available configuration options.
 
 </note>
 
@@ -532,3 +532,50 @@ class CreateUserAction extends WizardAction
 </code-tab>
 
 </tabbed-code-example>
+
+
+## Configuring middleware
+
+If you want to apply a specific set of middleware to a particular wizard, you can implement the static `middleware` method in your wizard class.
+
+<tabbed-code-example>
+
+<code-tab name="RegistrationWizard.php">
+
+```php{25-28}
+<?php
+
+namespace App\Wizards\Registration;
+
+use Arcanist\AbstractWizard;
+use App\Wizards\Registration\SelectPlanStep;
+use App\Wizards\Registration\CreateUserAction;
+use App\Wizards\Registration\UploadUserAvatarStep;
+use App\Wizards\Registration\EmailAndPasswordStep;
+
+class RegistrationWizard extends AbstractWizard
+{
+    public static string $title = 'Join the fun';
+
+    public static string $slug = 'register';
+
+    protected array $steps = [
+        EmailAndPasswordStep::class,
+        SelectPlanStep::class,
+        UploadUserAvatarStep::class,
+    ];
+
+    protected string $onCompleteAction = CreateUserAction::class;
+
+    public static function middleware(): array
+    {
+        return ['guest'];
+    }
+}
+```
+
+</code-tab>
+
+</tabbed-code-example>
+
+This middleware gets _merged_ with the [global wizard middleware](/configuration#global-wizard-middleware) defined in the configuration.

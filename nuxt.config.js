@@ -47,6 +47,11 @@ export default {
         href:
           "https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,700;1,400&display=swap",
       },
+      {
+        rel: "stylesheet",
+        href:
+          "https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css",
+      },
     ],
   },
 

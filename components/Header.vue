@@ -7,12 +7,7 @@
         </NuxtLink>
 
         <div class="space-x-4 flex items-center">
-          <input
-            type="text"
-            class="rounded-full bg-gray-100 border py-2 px-6 border-gray-300 hidden md:block"
-            placeholder="Search (coming soon)"
-            disabled
-          />
+          <AlgoliaSearchInput />
 
           <a
             href="https://github.com/laravel-arcanist/arcanist"
@@ -64,7 +59,13 @@
 </template>
 
 <script>
+import AlgoliaSearchInput from "./AlgoliaSearchInput.vue";
+
 export default {
+  components: {
+    AlgoliaSearchInput,
+  },
+
   data() {
     return {
       showNav: false,

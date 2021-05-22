@@ -32,11 +32,11 @@ class RegistrationWizard extends AbstractWizard
 
 </tabbed-code-example>
 
-<!--note title="Generating Wizards">
+<note title="Generating Wizards">
 
 You can use the `php artisan make:wizard` command to have <Arcanist></Arcanist> ~conjure~ generate a new wizard skeleton for you.
 
-</note-->
+</note>
 
 ## Registering wizards
 

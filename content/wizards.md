@@ -34,7 +34,7 @@ class RegistrationWizard extends AbstractWizard
 
 <note title="Generating Wizards">
 
-You can use the `php artisan make:wizard` command to have <Arcanist></Arcanist> ~conjure~ generate a new wizard skeleton for you.
+You can use the `php artisan make:wizard` command to have <Arcanist></Arcanist> ~conjure~ generate a new wizard skeleton for you. Check the section on [commands](/commands#generating-wizards) for more information.
 
 </note>
 

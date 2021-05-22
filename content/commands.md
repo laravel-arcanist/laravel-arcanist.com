@@ -1,9 +1,9 @@
 ---
 title: Commands
 epigraph:
-    author: Cicero, probably
+    author: Magrat Garlick, Wyrd Sisters
     text: >
-        Lorem Ipsum
+        There are thousands of good reasons why magic doesn’t rule the world. They’re called witches and wizards.
 ---
 
 <Arcanist></Arcanist> provides a few handy console command to quickly generate the necessary classes for creating wizards.

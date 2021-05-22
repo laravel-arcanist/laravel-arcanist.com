@@ -2,7 +2,7 @@
   <input
     type="text"
     id="docsearch"
-    class="rounded-full bg-gray-100 border py-2 px-6 border-gray-300 hidden md:block"
+    class="rounded-full bg-gray-100 border py-2 px-6 border-gray-300 hidden md:block focus:outline-none focus:border-indigo-700"
     placeholder="Search"
   />
 </template>

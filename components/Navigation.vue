@@ -42,6 +42,10 @@ export default {
               to: "/configuration",
               label: "Configuration",
             },
+            {
+              to: "/commands",
+              label: "Commands",
+            },
           ],
         },
         {

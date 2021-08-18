@@ -54,7 +54,7 @@ To create a new step for an existing wizard, you can use the `make:wizard-step` 
 <code-tab>
 
 ```
-php artisan make:wizard ChooseSubscriptionStep RegistrationWizard
+php artisan make:wizard-step ChooseSubscriptionStep RegistrationWizard
 ```
 
 </code-tab>

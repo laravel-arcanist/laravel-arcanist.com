@@ -229,14 +229,30 @@ return [
 
 </tabbed-code-example>
 
-The Inertia driver will render your step’s as a `Inertia::response`. <Arcanist></Arcanist> will attempt to resolve a step’s Vue component using the following convention:
+The Inertia driver will render your step’s as a `Inertia::response`. Assuming you are using the default Inertia configuration, <Arcanist></Arcanist> will attempt to resolve a step’s component using the following convention:
 
 <tabbed-code-example>
 
-<code-tab>
+<code-tab name="Vue 2 & 3">
 
 ```
 resources/js/Pages/{component_base_path}/{wizard_slug}/{step_slug}.vue
+```
+
+</code-tab>
+
+<code-tab name="React">
+
+```
+resources/js/Pages/{component_base_path}/{wizard_slug}/{step_slug}.(js|ts)
+```
+
+</code-tab>
+  
+<code-tab name="Svelte">
+
+```
+resources/js/Pages/{component_base_path}/{wizard_slug}/{step_slug}.svelte
 ```
 
 </code-tab>
@@ -275,10 +291,26 @@ For instance, changing this value to `Forms` means <Arcanist></Arcanist> will tr
 
 <tabbed-code-example>
 
-<code-tab>
+<code-tab name="Vue 2 & 3">
 
 ```
 resources/js/Pages/Forms/{wizard_slug}/{step_slug}.vue
+```
+
+</code-tab>
+
+<code-tab name="React">
+
+```
+resources/js/Pages/Forms/{wizard_slug}/{step_slug}.(js|ts)
+```
+
+</code-tab>
+
+<code-tab name="Svelte">
+
+```
+resources/js/Pages/Forms/{wizard_slug}/{step_slug}.svelte
 ```
 
 </code-tab>

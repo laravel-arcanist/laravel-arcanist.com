@@ -152,7 +152,7 @@ class UsernameAndPasswordStep extends WizardStep
         return $this->withFormData();
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             // Field::make('field-name')
@@ -186,7 +186,7 @@ class AnnoyingNewsletterStep extends WizardStep
         return $this->withFormData();
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             // Field::make('field-name')
@@ -268,7 +268,7 @@ class UsernameAndPasswordStep extends WizardStep
 {
     // snip...
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             Field::make('username'),
@@ -311,7 +311,7 @@ class UsernameAndPasswordStep extends WizardStep
 {
     // snip...
 
-    protected function fields(): array
+    public function fields(): array
     {
          return [
             Field::make('username')
@@ -341,7 +341,7 @@ class AnnoyingNewsletterStep extends WizardStep
 {
     // snip...
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             Field::make('newsletter')

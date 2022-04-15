@@ -61,7 +61,7 @@ class EmailAndPassword extends WizardStep
         return $this->success($payload)
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             Field::make('email')
@@ -91,7 +91,7 @@ class SelectSubscription extends WizardStep
         ]);
     }
 
-    protected function fields(): array
+    public function fields(): array
     {
         return [
             Field::make('subscriptions')
